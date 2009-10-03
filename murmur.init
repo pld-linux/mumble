@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+#       /etc/rc.d/init.d/murmur
+#
+#       starts the murmur voip server
+#
+# chkconfig: - 20 80
+# description:	murmur is the server for the Mumble
+#		voip suite aimed at gamers
+# processname: murmur
+# config: /etc/mumble-server.ini
+# pidfile: /var/run/murmur.pid
+
+# Source function library.
+
+. /lib/lsb/init-functions
+
+prog=murmur
+lockfile=/var/log/subsys/murmur
+RETVAL=0
+INIFILE=/etc/mumble-server.ini
+MURMUR_USER=murmur
+MURMUR_GROUP=murmur
+MURMUR_PIDFILE=/var/run/murmur/murmur.pid
+MURMUR_OPTS="-ini $INIFILE"
+pidfile=$MURMUR_PIDFILE
+
+start() {
+        echo -n "Starting murmur: "
+	start_daemon $prog --PIDFile "$pidfile" --chuid: $MURMUR_USER:$MURMUR_GROUP --RunAsDaemon 1 $MURMUR_OPTS
+	RETVAL=$?
+	if [ $RETVAL -eq 0 ]; then
+		touch "$lockfile" && success || failure
+	fi
+	echo
+}
+
+stop() {
+        echo -n "Shutting down murmur: "
+	killproc $prog -INT && success || failure
+	RETVAL=$?
+	echo
+	if [ $RETVAL -eq 0 ]; then
+		/bin/rm "$lockfile" "$pidfile" 2> /dev/null && success || failure
+	fi
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+#	if [ -f $lockfile]; then
+#		echo $"Murmur appears to be running."
+#		RETVAL=0
+#	else
+#		echo $"Murmur appears to be stopped."
+#		RETVAL=3
+#	fi
+	status $prog
+        ;;
+    restart|force-reload)
+	restart
+        ;;
+    reload)
+        ;;
+    condrestart)
+        [ -f "$lockfile" ] && restart
+	;;
+    *)
+        echo "Usage: <servicename> {start|stop|status|restart|reload|force-reload|condrestart"
+        exit 1
+        ;;
+esac
+exit $RETVAL
