@@ -1,12 +1,12 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
-Version:	1.1.8
-Release:	15%{?dist}
+Version:	1.2.2
+Release:	1
 License:	BSD
 Group:		Applications/Networking
-URL:		http://mumble.sourceforge.net/
 Source0:	http://dl.sourceforge.net/mumble/%{name}-%{version}.tar.gz
-# Source0-md5:	a7da012922d39b87c45d9f481d4b5efb
+# Source0-md5:	de30ee85170e183b66568b53b04c5727
+URL:		http://mumble.sourceforge.net/
 Source1:	murmur.init
 Source2:	%{name}.desktop
 Source3:	%{name}-overlay.desktop
@@ -72,7 +72,6 @@ your channel.
 Summary:	Package to support mumble protocol
 Group:		Applications/Networking
 Requires:	%{name} = %{version}-%{release}
-Requires:	kde-filesystem
 
 %description protocol
 Low-latency, high-quality voice communication for gamers. Includes
