@@ -10,3 +10,16 @@
  #ifdef Q_OS_LINUX
  #include <sys/capability.h>
 
+--- mumble-1.2.2/compiler.pri.orig	2010-04-01 21:04:58.109466628 +0200
++++ mumble-1.2.2/compiler.pri	2010-04-01 21:05:34.933231938 +0200
+@@ -75,8 +75,8 @@
+ 
+ unix {
+ 	DEFINES *= RESTRICT=__restrict__
+-	QMAKE_CFLAGS *= -Wfatal-errors -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
+-	QMAKE_CXXFLAGS *= -Wfatal-errors -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
++	QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare -fvisibility=hidden
++	QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare -fvisibility=hidden
+ 
+ 	CONFIG(opt-gcc) {
+ 		QMAKE_CC = /opt/gcc/bin/gcc
