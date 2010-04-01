@@ -51,7 +51,7 @@ Murmur (also called mumble-server) is part of VoIP suite Mumble
 primarily intended for gamers. Murmur is server part of suite.
 
 %prep
-%setup -q -n %{name}-%{version}-%{snap}
+%setup -q
 %patch0 -p1
 
 %build
