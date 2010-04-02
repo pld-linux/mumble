@@ -70,6 +70,7 @@ DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir},/etc/murmur,%{_datadir}/applications}
+install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -79,6 +80,10 @@ install release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install release/murmurd $RPM_BUILD_ROOT%{_sbindir}
 install scripts/murmur.ini $RPM_BUILD_ROOT/etc/murmur
 install scripts/mumble.desktop $RPM_BUILD_ROOT%{_datadir}/applications
+install src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
+install src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/%{name}.png
+install src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
+install src/mumble11x/resources/mumble.64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/%{name}.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -103,6 +108,7 @@ fi
 %attr(755,root,root) %{_bindir}/mumble11x
 %attr(755,root,root) %{_libdir}/libmumble.so.1.2.2
 %{_datadir}/applications/%{name}.desktop
+%{_iconsdir}/hicolor/*x*/%{name}.png
 
 %files server
 %defattr(644,root,root,755)
