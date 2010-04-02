@@ -43,8 +43,8 @@ loudspeakers won't be audible to other players.
 
 %package server
 Summary:	Mumble voice chat server
-Group:		Daemons
-Provides:	%{name}-server = %{version}-%{release}
+Group:		Applications/Communications
+Requires:	QtSql-sqlite3 >= %{qtver}
 
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
