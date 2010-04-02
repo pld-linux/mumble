@@ -6,7 +6,7 @@ Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.2
 Release:	0.1
-License:	BSD
+License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://dl.sourceforge.net/mumble/%{name}-%{version}.tar.gz
 # Source0-md5:	de30ee85170e183b66568b53b04c5727
@@ -63,17 +63,33 @@ QMAKE_CFLAGS_RELEASE=%{rpmcflags} \
 QMAKE_CXXFLAGS_RELEASE=%{rpmcxxflags} \
 DEFINES+=PLUGIN_PATH=%{_libdir}/%{name} \
 DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}}
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+install release/libmumble.so.1.2.2 $RPM_BUILD_ROOT%{_libdir}
+install release/mumble* $RPM_BUILD_ROOT%{_bindir}
+install release/murmurd $RPM_BUILD_ROOT%{_sbindir}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc README README.Linux LICENSE CHANGES
+%attr(755,root,root) %{_bindir}/mumble
+%attr(755,root,root) %{_bindir}/mumble11x
+%attr(755,root,root) %{_libdir}/libmumble.so.1.2.2
 
 %files server
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_sbindir}/murmurd
