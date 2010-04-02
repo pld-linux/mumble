@@ -99,7 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 %preun server
 if [ "$1" = "0" ]; then
 	%service murmurd stop
-	/sbin/chkconfig --del ejabberd
+	/sbin/chkconfig --del murmurd
 fi
 
 %files
