@@ -69,7 +69,7 @@ DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir},/etc/murmur}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir},/etc/murmur,%{_datadir}/applications}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -78,6 +78,7 @@ install release/libmumble.so.1.2.2 $RPM_BUILD_ROOT%{_libdir}
 install release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install release/murmurd $RPM_BUILD_ROOT%{_sbindir}
 install scripts/murmur.ini $RPM_BUILD_ROOT/etc/murmur
+install scripts/mumble.desktop $RPM_BUILD_ROOT%{_datadir}/applications
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,6 +102,7 @@ fi
 %attr(755,root,root) %{_bindir}/mumble
 %attr(755,root,root) %{_bindir}/mumble11x
 %attr(755,root,root) %{_libdir}/libmumble.so.1.2.2
+%{_datadir}/applications/%{name}.desktop
 
 %files server
 %defattr(644,root,root,755)
