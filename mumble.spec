@@ -45,6 +45,7 @@ loudspeakers won't be audible to other players.
 Summary:	Mumble voice chat server
 Group:		Applications/Communications
 Requires:	QtSql-sqlite3 >= %{qtver}
+Requires(post,preun):	/sbin/chkconfig
 
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
@@ -68,7 +69,7 @@ DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir},/etc/murmur}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -76,12 +77,23 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}}
 install release/libmumble.so.1.2.2 $RPM_BUILD_ROOT%{_libdir}
 install release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install release/murmurd $RPM_BUILD_ROOT%{_sbindir}
+install scripts/murmur.ini $RPM_BUILD_ROOT/etc/murmur
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+
+%post server
+/sbin/chkconfig --add murmurd
+%service murmurd restart "mumble server"
+
+%preun server
+if [ "$1" = "0" ]; then
+	%service murmurd stop
+	/sbin/chkconfig --del ejabberd
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -93,3 +105,5 @@ rm -rf $RPM_BUILD_ROOT
 %files server
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/murmurd
+%dir /etc/murmur
+/etc/murmur/murmur.ini
