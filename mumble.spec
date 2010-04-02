@@ -117,4 +117,4 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/murmurd
 %dir /etc/murmur
-/etc/murmur/murmur.ini
+%config(noreplace) /etc/murmur/murmur.ini
