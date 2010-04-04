@@ -8,7 +8,7 @@ Version:	1.2.2
 Release:	0.1
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
-Source0:	http://dl.sourceforge.net/mumble/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
 # Source0-md5:	de30ee85170e183b66568b53b04c5727
 # get it via: git clone git://mumble.git.sourceforge.net/gitroot/mumble/mumble
 #Source0:	%{name}-%{version}-%{snap}.tar.gz
@@ -31,6 +31,7 @@ BuildRequires:	celt-devel >= 0.7.1
 BuildRequires:	protobuf-devel
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	speech-dispatcher-devel
 BuildRequires:	speex-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -44,8 +45,9 @@ loudspeakers won't be audible to other players.
 %package server
 Summary:	Mumble voice chat server
 Group:		Applications/Communications
-Requires:	QtSql-sqlite3 >= %{qtver}
 Requires(post,preun):	/sbin/chkconfig
+Requires:	QtSql-sqlite3 >= %{qtver}
+Requires:	rc-scripts
 
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
@@ -69,22 +71,22 @@ DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}/%{name},/etc/murmur,%{_datadir}/applications}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}/%{name},%{_sysconfdir}/murmur,%{_desktopdir}}
 install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install release/libmumble.so.1.2.2 $RPM_BUILD_ROOT%{_libdir}
-install release/mumble* $RPM_BUILD_ROOT%{_bindir}
-install release/murmurd $RPM_BUILD_ROOT%{_sbindir}
-install scripts/murmur.ini $RPM_BUILD_ROOT/etc/murmur
-install scripts/mumble.desktop $RPM_BUILD_ROOT%{_datadir}/applications
-install src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
-install src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/%{name}.png
-install src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
-install src/mumble11x/resources/mumble.64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/%{name}.png
-install release/plugins/*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+install -p release/libmumble.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+install -p release/mumble* $RPM_BUILD_ROOT%{_bindir}
+install -p release/murmurd $RPM_BUILD_ROOT%{_sbindir}
+install -p release/plugins/*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+cp -a scripts/murmur.ini $RPM_BUILD_ROOT%{_sysconfdir}/murmur
+cp -a scripts/mumble.desktop $RPM_BUILD_ROOT%{_desktopdir}
+cp -a src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
+cp -a src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/%{name}.png
+cp -a src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
+cp -a src/mumble11x/resources/mumble.64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/%{name}.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -107,14 +109,14 @@ fi
 %doc README README.Linux LICENSE CHANGES
 %attr(755,root,root) %{_bindir}/mumble
 %attr(755,root,root) %{_bindir}/mumble11x
-%attr(755,root,root) %{_libdir}/libmumble.so.1.2.2
+%attr(755,root,root) %{_libdir}/libmumble.so.*.*.*
 %dir %{_libdir}/%{name}
 %attr(755,root,root) %{_libdir}/%{name}/*.so
-%{_datadir}/applications/%{name}.desktop
+%{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*x*/%{name}.png
 
 %files server
 %defattr(644,root,root,755)
+%dir %{_sysconfdir}/murmur
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
 %attr(755,root,root) %{_sbindir}/murmurd
-%dir /etc/murmur
-%config(noreplace) /etc/murmur/murmur.ini
