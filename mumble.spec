@@ -17,7 +17,6 @@ Source1:	murmur.init
 Source2:	%{name}.desktop
 Source3:	%{name}-overlay.desktop
 Patch0:		%{name}-compile-fix.patch
-BuildRequires:	Ice-devel
 BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtDBus-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
@@ -28,6 +27,7 @@ BuildRequires:	QtSvg-devel >= %{qtver}
 BuildRequires:	QtXml-devel >= %{qtver}
 BuildRequires:	QtXmlPatterns-devel >= %{qtver}
 BuildRequires:	celt-devel >= 0.7.1
+BuildRequires:	ice-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
