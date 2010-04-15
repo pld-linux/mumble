@@ -6,4 +6,4 @@ Exec=mumble
 Icon=mumble
 Terminal=false
 Type=Application
-Categories=Network;Chat;
+Categories=Qt;Network;InstantMessaging;
