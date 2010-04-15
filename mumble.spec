@@ -5,7 +5,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.2
-Release:	0.2
+Release:	0.4
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -16,7 +16,9 @@ URL:		http://mumble.sourceforge.net/
 Source1:	murmur.init
 Source2:	%{name}.desktop
 Source3:	%{name}-overlay.desktop
+Source4:	murmur.logrotate
 Patch0:		%{name}-compile-fix.patch
+Patch1:		%{name}-murmurini.patch
 BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtDBus-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
@@ -57,6 +59,7 @@ primarily intended for gamers. Murmur is server part of suite.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p0
 
 %build
 qmake-qt4 "CONFIG+=no-bundled-speex no-bundled-celt no-g15 \
@@ -75,12 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}/%{name},%{_sysconfdir}/murmur,%{_desktopdir}}
 install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64}
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT/etc/logrotate.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/murmurd
 install -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+cp -a %{SOURCE4} $RPM_BUILD_ROOT/etc/logrotate.d/murmur
 install -p release/libmumble.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 install -p release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install -p release/murmurd $RPM_BUILD_ROOT%{_sbindir}
@@ -122,5 +127,6 @@ fi
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}/murmur
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/murmur
 %attr(755,root,root) %{_sbindir}/murmurd
 %attr(755,root,root) /etc/rc.d/init.d/murmurd
