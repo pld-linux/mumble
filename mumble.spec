@@ -103,6 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %post server
+if [ ! -f /var/log/murmur ]; then
+	umask 027
+	touch /var/log/murmur
+	chmod 660 /var/log/murmur
+fi
 /sbin/chkconfig --add murmurd
 %service murmurd restart "mumble server"
 
