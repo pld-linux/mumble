@@ -1,0 +1,15 @@
+--- scripts/murmur.ini.orig	2010-04-15 19:15:36.800340573 +0200
++++ scripts/murmur.ini	2010-04-15 19:16:58.611354545 +0200
+@@ -48,10 +48,10 @@
+ 
+ # Murmur default to logging to murmur.log. If you leave this blank,
+ # murmur will log to the console (linux) or through message boxes (win32).
+-#logfile=murmur.log
++logfile=/var/log/murmur
+ 
+ # If set, murmur will write its process ID to this file.
+-#pidfile=
++pidfile=/var/run/murmurd.pid
+ 
+ # The below will be used as defaults for new configured servers.
+ # If you're just running one server (the default), it's easier to
