@@ -5,7 +5,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.2
-Release:	0.1
+Release:	0.2
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -28,12 +28,14 @@ BuildRequires:	QtXml-devel >= %{qtver}
 BuildRequires:	QtXmlPatterns-devel >= %{qtver}
 BuildRequires:	celt-devel >= 0.7.1
 BuildRequires:	ice-devel
-BuildRequires:	protobuf-devel
+BuildRequires:	protobuf
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	speech-dispatcher-devel
 BuildRequires:	speex-devel
+Requires:	QtSql-sqlite3 >= %{qtver}
+Requires:	speech-dispatcher
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -46,7 +48,6 @@ loudspeakers won't be audible to other players.
 Summary:	Mumble voice chat server
 Group:		Applications/Communications
 Requires(post,preun):	/sbin/chkconfig
-Requires:	QtSql-sqlite3 >= %{qtver}
 Requires:	rc-scripts
 
 %description server
@@ -73,16 +74,18 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}/%{name},%{_sysconfdir}/murmur,%{_desktopdir}}
 install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64}
+install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/murmurd
+install -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 install -p release/libmumble.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 install -p release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install -p release/murmurd $RPM_BUILD_ROOT%{_sbindir}
 install -p release/plugins/*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 cp -a scripts/murmur.ini $RPM_BUILD_ROOT%{_sysconfdir}/murmur
-cp -a scripts/mumble.desktop $RPM_BUILD_ROOT%{_desktopdir}
 cp -a src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
 cp -a src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/%{name}.png
 cp -a src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
@@ -120,3 +123,4 @@ fi
 %dir %{_sysconfdir}/murmur
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
 %attr(755,root,root) %{_sbindir}/murmurd
+%attr(755,root,root) /etc/rc.d/init.d/murmurd
