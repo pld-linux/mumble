@@ -22,7 +22,7 @@ start() {
 	fi
 
 	msg_starting "murmur"
-	daemon --pidfile /var/run/murmurd.pid /usr/sbin/murmurd
+	daemon --pidfile /var/run/murmurd.pid /usr/sbin/murmurd -ini /etc/murmur/murmur.ini
 	RETVAL=$?
 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/murmurd
 }
