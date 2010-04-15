@@ -50,6 +50,7 @@ loudspeakers won't be audible to other players.
 Summary:	Mumble voice chat server
 Group:		Applications/Communications
 Requires(post,preun):	/sbin/chkconfig
+Requires:	QtSql-sqlite3 >= %{qtver}
 Requires:	rc-scripts
 
 %description server
