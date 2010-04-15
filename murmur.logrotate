@@ -1,0 +1,6 @@
+/var/log/murmur {
+	create 660 root root
+	postrotate
+		/sbin/service murmurd flush-logs >/dev/null
+	endscript
+}
