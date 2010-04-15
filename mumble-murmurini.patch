@@ -1,5 +1,5 @@
---- scripts/murmur.ini.orig	2010-04-15 19:15:36.800340573 +0200
-+++ scripts/murmur.ini	2010-04-15 19:16:58.611354545 +0200
+--- scripts/murmur.ini.orig	2010-04-15 20:49:02.190090655 +0200
++++ scripts/murmur.ini	2010-04-15 20:49:47.077091064 +0200
 @@ -48,10 +48,10 @@
  
  # Murmur default to logging to murmur.log. If you leave this blank,
@@ -13,3 +13,12 @@
  
  # The below will be used as defaults for new configured servers.
  # If you're just running one server (the default), it's easier to
+@@ -123,7 +123,7 @@
+ 
+ # If murmur is started as root, which user should it switch to?
+ # This option is ignored if murmur isn't started with root privileges.
+-#uname=
++uname=murmur
+ 
+ # If this options is enabled, only clients which have a certificate are allowed
+ # to connect.
