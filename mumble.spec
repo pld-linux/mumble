@@ -5,7 +5,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.2
-Release:	0.5
+Release:	0.6
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+
+%pre server
+%groupadd -g 250 murmur
+%useradd -u 250 -d /etc/%{name} -g murmur -c "Mumble Server" murmur
 
 %post server
 if [ ! -f /var/log/murmur ]; then
