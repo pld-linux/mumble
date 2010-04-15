@@ -5,7 +5,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.2
-Release:	0.4
+Release:	0.5
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -76,7 +76,7 @@ DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}/%{name},%{_sysconfdir}/murmur,%{_desktopdir}}
-install -d $RPM_BUILD_ROOT%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64}
+install -d $RPM_BUILD_ROOT{%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64},%{_pixmapsdir}}
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/etc/logrotate.d
 
@@ -91,10 +91,10 @@ install -p release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install -p release/murmurd $RPM_BUILD_ROOT%{_sbindir}
 install -p release/plugins/*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 cp -a scripts/murmur.ini $RPM_BUILD_ROOT%{_sysconfdir}/murmur
-cp -a src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
-cp -a src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/%{name}.png
-cp -a src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
-cp -a src/mumble11x/resources/mumble.64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/%{name}.png
+#cp -a src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
+cp -a src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
+#cp -a src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
+#cp -a src/mumble11x/resources/mumble.64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/%{name}.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -121,7 +121,7 @@ fi
 %dir %{_libdir}/%{name}
 %attr(755,root,root) %{_libdir}/%{name}/*.so
 %{_desktopdir}/%{name}.desktop
-%{_iconsdir}/hicolor/*x*/%{name}.png
+%{_pixmapsdir}/%{name}.png
 
 %files server
 %defattr(644,root,root,755)
