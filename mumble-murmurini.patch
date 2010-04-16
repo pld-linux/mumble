@@ -1,5 +1,13 @@
 --- scripts/murmur.ini.orig	2010-04-15 20:49:02.190090655 +0200
 +++ scripts/murmur.ini	2010-04-15 20:49:47.077091064 +0200
+@@ -1,6 +1,6 @@
+ # Path to database. If blank, will search for
+ # murmur.sqlite in default locations or create it if not found.
+-database=
++database=/var/lib/murmur/
+ 
+ # If you wish to use something other than SQLite, you'll need to set the name
+ # of the database above, and also uncomment the below.
 @@ -48,10 +48,10 @@
  
  # Murmur default to logging to murmur.log. If you leave this blank,
