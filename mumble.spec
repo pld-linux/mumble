@@ -1,3 +1,5 @@
+# TODO
+# - missing archivedir in logrotate (or intentionally?)
 
 %define		qtver	4.6.2
 %define		snap	20100401
@@ -51,7 +53,7 @@ Summary:	Mumble voice chat server
 Group:		Applications/Communications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	QtSql-sqlite3 >= %{qtver}
-Requires:	rc-scripts
+Requires:	rc-scripts >= 0.4.1.23
 
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
@@ -139,4 +141,4 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/murmur
 %attr(755,root,root) %{_sbindir}/murmurd
-%attr(755,root,root) /etc/rc.d/init.d/murmurd
+%attr(754,root,root) /etc/rc.d/init.d/murmurd
