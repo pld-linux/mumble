@@ -114,7 +114,6 @@ rm -rf $RPM_BUILD_ROOT
 if [ ! -f /var/log/murmur ]; then
 	umask 027
 	touch /var/log/murmur
-	chmod 660 /var/log/murmur
 fi
 /sbin/chkconfig --add murmurd
 %service murmurd restart "mumble server"
