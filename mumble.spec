@@ -107,7 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre server
 %groupadd -g 250 murmur
-%useradd -u 250 -d /etc/%{name} -g murmur -c "Mumble Server" murmur
+%useradd -u 250 -d /etc/murmur -g murmur -c "Mumble Server" murmur
 
 %post server
 if [ ! -f /var/log/murmur ]; then
