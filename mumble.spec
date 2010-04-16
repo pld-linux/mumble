@@ -1,5 +1,6 @@
 # TODO
 # - missing archivedir in logrotate (or intentionally?)
+# - make it use /var/lib/murmur
 
 %define		qtver	4.6.2
 %define		snap	20100401
@@ -107,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre server
 %groupadd -g 250 murmur
-%useradd -u 250 -d /etc/murmur -g murmur -c "Mumble Server" murmur
+%useradd -u 250 -d /var/lib/murmur -g murmur -c "Mumble Server" murmur
 
 %post server
 if [ ! -f /var/log/murmur ]; then
@@ -137,7 +138,7 @@ fi
 
 %files server
 %defattr(644,root,root,755)
-%attr(770,root,murmur) %dir %{_sysconfdir}/murmur
+%attr(770,root,root) %dir %{_sysconfdir}/murmur
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/murmur
 %attr(755,root,root) %{_sbindir}/murmurd
