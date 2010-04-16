@@ -137,7 +137,7 @@ fi
 
 %files server
 %defattr(644,root,root,755)
-%attr(775,root,murmur) %dir %{_sysconfdir}/murmur
+%attr(770,root,murmur) %dir %{_sysconfdir}/murmur
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/murmur
 %attr(755,root,root) %{_sbindir}/murmurd
