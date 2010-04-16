@@ -43,6 +43,8 @@ Requires:	QtSql-sqlite3 >= %{qtver}
 Requires:	speech-dispatcher
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_appdir		/var/lib/murmur
+
 %description
 Low-latency, high-quality voice communication for gamers. Includes
 game linking, so voice from other players comes from the direction of
@@ -81,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_libdir}/%{name},%{_sysconfdir}/murmur,%{_desktopdir}}
 install -d $RPM_BUILD_ROOT{%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64},%{_pixmapsdir}}
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_appdir}}
 install -d $RPM_BUILD_ROOT/etc/logrotate.d
 
 %{__make} install \
@@ -137,7 +139,8 @@ fi
 
 %files server
 %defattr(644,root,root,755)
-%attr(750,root,murmur) %dir %{_sysconfdir}/murmur
+%attr(750,root,root) %dir %{_sysconfdir}/murmur
+%attr(770,root,murmur) %dir %{_appdir}
 %attr(640,root,murmur) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/murmur/murmur.ini
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/murmur
 %attr(755,root,root) %{_sbindir}/murmurd
