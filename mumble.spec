@@ -1,6 +1,5 @@
 # TODO
 # - missing archivedir in logrotate (or intentionally?)
-# - make it use /var/lib/murmur
 
 %define		qtver	4.6.2
 %define		snap	20100401
