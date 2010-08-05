@@ -125,6 +125,12 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del murmurd
 fi
 
+%postun server
+if [ "$1" = "0" ]; then
+        %userremove murmur
+        %groupremove murmur
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc README README.Linux LICENSE CHANGES
