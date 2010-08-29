@@ -54,12 +54,16 @@ loudspeakers won't be audible to other players.
 Summary:	Mumble voice chat server
 Group:		Applications/Communications
 Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
+Requires(pre):  /usr/bin/getgid
+Requires(pre):  /usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	QtSql-sqlite3 >= %{qtver}
 Requires:	rc-scripts >= 0.4.1.23
 Provides:	user(murmur)
+Provides:	group(murmur)
 
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
