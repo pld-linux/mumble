@@ -1,11 +1,11 @@
---- overlay_gl/Makefile.Release.orig	2010-11-08 21:40:02.131489427 +0100
-+++ overlay_gl/Makefile.Release	2010-11-08 21:41:00.584808810 +0100
-@@ -15,7 +15,7 @@
- INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++-64 -I.
- LINK          = x86_64-pld-linux-g++
- LFLAGS        = -m64 $(LFLAGS_ADD) -Wl,-O1 -shared -Wl,-soname,libmumble$(TARGET_ADD).so.1
--LIBS          = $(SUBLIBS)   -lrt -ldl 
-+LIBS          = $(SUBLIBS)   -lrt -ldl -lGL
- AR            = ar cqs
- RANLIB        = 
- QMAKE         = /usr/bin/qmake-qt4
+--- overlay_gl/overlay_gl.pro.orig	2010-11-08 21:48:06.435525507 +0100
++++ overlay_gl/overlay_gl.pro	2010-11-08 21:48:43.898217977 +0100
+@@ -7,7 +7,7 @@
+ TARGET = mumble$(TARGET_ADD)
+ VERSION = 1.2.2
+ SOURCES = overlay.c
+-LIBS *= -lrt -ldl
++LIBS *= -lrt -ldl -lGL
+ QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
+ QMAKE_LFLAGS -= -Wl,--no-undefined
+ QMAKE_LFLAGS *= $(LFLAGS_ADD)
