@@ -7,7 +7,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.2
-Release:	2
+Release:	3
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -21,6 +21,7 @@ Source3:	%{name}-overlay.desktop
 Source4:	murmur.logrotate
 Patch0:		%{name}-compile-fix.patch
 Patch1:		%{name}-murmurini.patch
+Patch2:		%{name}-link.patch
 BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtDBus-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
@@ -73,6 +74,7 @@ primarily intended for gamers. Murmur is server part of suite.
 %setup -q
 %patch0 -p1
 %patch1 -p0
+%patch2 -p0
 
 %build
 qmake-qt4 "CONFIG+=no-bundled-speex no-bundled-celt no-g15 \
