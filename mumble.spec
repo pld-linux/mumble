@@ -31,12 +31,15 @@ BuildRequires:	QtSql-devel >= %{qtver}
 BuildRequires:	QtSvg-devel >= %{qtver}
 BuildRequires:	QtXml-devel >= %{qtver}
 BuildRequires:	QtXmlPatterns-devel >= %{qtver}
+BuildRequires:	alsa-lib-devel
 BuildRequires:	celt-devel >= 0.7.1
 BuildRequires:	ice-devel
 BuildRequires:	protobuf
 BuildRequires:	qt4-build >= %{qtver}
+BuildRequires:	qt4-linguist >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	sed >= 4.0
 BuildRequires:	speech-dispatcher-devel
 BuildRequires:	speex-devel
 Requires:	QtSql-sqlite3 >= %{qtver}
@@ -58,13 +61,13 @@ Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
-Requires(pre):  /usr/bin/getgid
-Requires(pre):  /usr/sbin/groupadd
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	QtSql-sqlite3 >= %{qtver}
 Requires:	rc-scripts >= 0.4.1.23
-Provides:	user(murmur)
 Provides:	group(murmur)
+Provides:	user(murmur)
 
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
@@ -76,6 +79,9 @@ primarily intended for gamers. Murmur is server part of suite.
 %patch1 -p0
 %patch2 -p0
 
+# change obsoleted LIBPATH to QMAKE_LIBDIR
+%{__sed} -i 's,LIBPATH,QMAKE_LIBDIR,' src/mumble11x/mumble11x.pro
+
 %build
 qmake-qt4 "CONFIG+=no-bundled-speex no-bundled-celt no-g15 \
 no-embed-qt-translations no-update \
@@ -85,7 +91,7 @@ QMAKE_CFLAGS_RELEASE=%{rpmcflags} \
 QMAKE_CXXFLAGS_RELEASE=%{rpmcxxflags} \
 DEFINES+=PLUGIN_PATH=%{_libdir}/%{name} \
 DEFINES+=DEFAULT_SOUNDSYSTEM=PulseAudio" main.pro
-%{__make} -j1
+%{__make} release -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
