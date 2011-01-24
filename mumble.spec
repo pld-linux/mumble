@@ -30,11 +30,19 @@ BuildRequires:	QtOpenGL-devel >= %{qtver}
 BuildRequires:	QtSql-devel >= %{qtver}
 BuildRequires:	QtSvg-devel >= %{qtver}
 BuildRequires:	QtXml-devel >= %{qtver}
-BuildRequires:	QtXmlPatterns-devel >= %{qtver}
 BuildRequires:	alsa-lib-devel
+BuildRequires:	avahi-compat-libdns_sd-devel
+BuildRequires:	boost-devel
 BuildRequires:	celt-devel >= 0.7.1
 BuildRequires:	ice-devel
+BuildRequires:	libcap-devel
+BuildRequires:	libmodplug-devel
+BuildRequires:	libogg-devel
+BuildRequires:	libsndfile-devel
+BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig
 BuildRequires:	protobuf
+BuildRequires:	protobuf-devel
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-linguist >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
