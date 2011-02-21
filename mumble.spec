@@ -6,12 +6,12 @@
 
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
-Version:	1.2.2
-Release:	4
+Version:	1.2.3
+Release:	1
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
-# Source0-md5:	de30ee85170e183b66568b53b04c5727
+# Source0-md5:	55804e3dfe98b16eeb40abca6c254625
 # get it via: git clone git://mumble.git.sourceforge.net/gitroot/mumble/mumble
 #Source0:	%{name}-%{version}-%{snap}.tar.gz
 URL:		http://mumble.sourceforge.net/
