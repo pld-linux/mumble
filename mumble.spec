@@ -1,5 +1,3 @@
-# TODO
-# - missing archivedir in logrotate (or intentionally?)
 
 %define		qtver	4.6.2
 %define		snap	20100401
@@ -7,7 +5,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.3
-Release:	1
+Release:	2
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -139,6 +137,7 @@ rm -rf $RPM_BUILD_ROOT
 if [ ! -f /var/log/murmur ]; then
 	umask 027
 	touch /var/log/murmur
+	chown murmur:logs /var/log/murmur
 fi
 /sbin/chkconfig --add murmurd
 %service murmurd restart "mumble server"
