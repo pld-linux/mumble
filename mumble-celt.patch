@@ -1,0 +1,12 @@
+--- mumble-1.2.3/src/mumble/AudioInput.cpp~	2011-02-19 22:35:16.000000000 +0100
++++ mumble-1.2.3/src/mumble/AudioInput.cpp	2011-09-11 21:38:25.093933057 +0200
+@@ -823,7 +823,9 @@
+ 
+ 		cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
+ 
++#ifdef CELT_SET_VBR_RATE
+ 		cCodec->celt_encoder_ctl(ceEncoder,CELT_SET_VBR_RATE(iAudioQuality));
++#endif
+ 		len = cCodec->encode(ceEncoder, psSource, buffer, qMin(iAudioQuality / 800, 127));
+ 		iBitrate = len * 100 * 8;
+ 	} else {
