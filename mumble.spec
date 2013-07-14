@@ -5,7 +5,7 @@
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
 Version:	1.2.3
-Release:	5
+Release:	6
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -21,6 +21,7 @@ Patch0:		%{name}-compile-fix.patch
 Patch1:		%{name}-murmurini.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-celt.patch
+Patch4:		speech-dispacher.patch
 BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtDBus-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
@@ -86,6 +87,7 @@ primarily intended for gamers. Murmur is server part of suite.
 %patch1 -p0
 %patch2 -p0
 %patch3 -p1
+%patch4 -p1
 
 # change obsoleted LIBPATH to QMAKE_LIBDIR
 %{__sed} -i 's,LIBPATH,QMAKE_LIBDIR,' src/mumble11x/mumble11x.pro
