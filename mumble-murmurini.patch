@@ -1,6 +1,7 @@
---- scripts/murmur.ini.orig	2010-04-15 20:49:02.190090655 +0200
-+++ scripts/murmur.ini	2010-04-15 20:49:47.077091064 +0200
-@@ -1,6 +1,6 @@
+--- scripts/murmur.ini.orig	2013-06-01 23:16:31.000000000 +0200
++++ scripts/murmur.ini	2014-01-09 10:08:11.826864748 +0100
+@@ -13,7 +13,7 @@
+ 
  # Path to database. If blank, will search for
  # murmur.sqlite in default locations or create it if not found.
 -database=
@@ -8,24 +9,25 @@
  
  # If you wish to use something other than SQLite, you'll need to set the name
  # of the database above, and also uncomment the below.
-@@ -48,10 +48,10 @@
- 
- # Murmur default to logging to murmur.log. If you leave this blank,
- # murmur will log to the console (linux) or through message boxes (win32).
--#logfile=murmur.log
+@@ -73,12 +73,14 @@
+ # on Unix-like systems, Murmur will force itself into foreground
+ # mode which logs to the console.
+ #logfile=murmur.log
 +logfile=/var/log/murmur
  
- # If set, murmur will write its process ID to this file.
--#pidfile=
+ # If set, Murmur will write its process ID to this file
+ # when running in daemon mode (when the -fg flag is not
+ # specified on the command line). Only available on
+ # Unix-like systems.
+ #pidfile=
 +pidfile=/var/run/murmurd.pid
  
  # The below will be used as defaults for new configured servers.
  # If you're just running one server (the default), it's easier to
-@@ -123,7 +123,7 @@
- 
- # If murmur is started as root, which user should it switch to?
- # This option is ignored if murmur isn't started with root privileges.
--#uname=
+@@ -163,6 +165,7 @@
+ # If Murmur is started as root, which user should it switch to?
+ # This option is ignored if Murmur isn't started with root privileges.
+ #uname=
 +uname=murmur
  
  # If this options is enabled, only clients which have a certificate are allowed
