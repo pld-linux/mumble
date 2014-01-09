@@ -4,12 +4,12 @@
 
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
-Version:	1.2.3
-Release:	6
+Version:	1.2.4
+Release:	1
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
-# Source0-md5:	55804e3dfe98b16eeb40abca6c254625
+# Source0-md5:	49bc6abea78f9c54298934c2c28a7c7c
 # get it via: git clone git://mumble.git.sourceforge.net/gitroot/mumble/mumble
 #Source0:	%{name}-%{version}-%{snap}.tar.gz
 URL:		http://mumble.sourceforge.net/
@@ -83,14 +83,11 @@ primarily intended for gamers. Murmur is server part of suite.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 %patch1 -p0
 %patch2 -p0
 %patch3 -p1
 %patch4 -p1
-
-# change obsoleted LIBPATH to QMAKE_LIBDIR
-%{__sed} -i 's,LIBPATH,QMAKE_LIBDIR,' src/mumble11x/mumble11x.pro
 
 %build
 qmake-qt4 "CONFIG+=no-bundled-speex no-bundled-celt no-g15 \
@@ -118,12 +115,13 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/murmurd
 install -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 cp -a %{SOURCE4} $RPM_BUILD_ROOT/etc/logrotate.d/murmur
 install -p release/libmumble.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+ln -s libmumble.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libmumble.so.1
 install -p release/mumble* $RPM_BUILD_ROOT%{_bindir}
 install -p release/murmurd $RPM_BUILD_ROOT%{_sbindir}
 install -p release/plugins/*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 cp -a scripts/murmur.ini $RPM_BUILD_ROOT%{_sysconfdir}/murmur
 #cp -a src/mumble11x/resources/mumble.16x16.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/16x16/%{name}.png
-cp -a src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
+#cp -a src/mumble11x/resources/mumble.32x32.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 #cp -a src/mumble11x/resources/mumble.48x48.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/48x48/%{name}.png
 #cp -a src/mumble11x/resources/mumble.64x64.png $RPM_BUILD_ROOT%{_iconsdir}/hicolor/64x64/%{name}.png
 
@@ -162,12 +160,12 @@ fi
 %defattr(644,root,root,755)
 %doc README README.Linux LICENSE CHANGES
 %attr(755,root,root) %{_bindir}/mumble
-%attr(755,root,root) %{_bindir}/mumble11x
 %attr(755,root,root) %{_libdir}/libmumble.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmumble.so.1
 %dir %{_libdir}/%{name}
 %attr(755,root,root) %{_libdir}/%{name}/*.so
 %{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/%{name}.png
+#%{_pixmapsdir}/%{name}.png
 
 %files server
 %defattr(644,root,root,755)
