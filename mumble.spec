@@ -50,6 +50,7 @@ BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 BuildRequires:	speech-dispatcher-devel
 BuildRequires:	speex-devel
+BuildRequires:	speexdsp-devel
 Requires:	QtSql-sqlite3 >= %{qtver}
 Requires:	speech-dispatcher
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
