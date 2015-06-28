@@ -1,23 +1,19 @@
 
 %define		qtver	4.6.4
-%define		snap	20100401
 
 Summary:	Voice chat software primarily intended for use while gaming
 Name:		mumble
-Version:	1.2.4
-Release:	3
+Version:	1.2.9
+Release:	1
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
-# Source0-md5:	49bc6abea78f9c54298934c2c28a7c7c
-# get it via: git clone git://mumble.git.sourceforge.net/gitroot/mumble/mumble
-#Source0:	%{name}-%{version}-%{snap}.tar.gz
+# Source0-md5:	85decb9a1efb13e7558fab6265f81ad8
 URL:		http://mumble.sourceforge.net/
 Source1:	murmur.init
 Source2:	%{name}.desktop
 Source3:	%{name}-overlay.desktop
 Source4:	murmur.logrotate
-Patch0:		%{name}-compile-fix.patch
 Patch1:		%{name}-murmurini.patch
 Patch2:		%{name}-link.patch
 Patch3:		%{name}-celt.patch
@@ -84,7 +80,6 @@ primarily intended for gamers. Murmur is server part of suite.
 
 %prep
 %setup -q
-#%patch0 -p1
 %patch1 -p0
 %patch2 -p0
 %patch3 -p1
