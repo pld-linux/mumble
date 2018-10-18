@@ -2,9 +2,10 @@
 %define		qtver	4.6.4
 
 Summary:	Voice chat software primarily intended for use while gaming
+Summary(pl.UTF-8):	Oprogramowanie do rozmów głosowych, przede wszystkim podczas gier
 Name:		mumble
 Version:	1.2.9
-Release:	4
+Release:	5
 License:	BSD and Custom (see LICENSE)
 Group:		Applications/Communications
 Source0:	http://downloads.sourceforge.net/mumble/%{name}-%{version}.tar.gz
@@ -59,8 +60,15 @@ game linking, so voice from other players comes from the direction of
 their characters, and has echo cancellation so the sound from your
 loudspeakers won't be audible to other players.
 
+%description -l pl.UTF-8
+Komunikacja głosowa o małym opóźnieniu i dobrej jakości, przeznaczona
+głównie dla graczy. Obejmuje połączenie z grą, więc głos innych graczy
+wydobywa się z kierunku ich postaci; ma usuwanie echa, więc dźwięk
+własnych głośników nie będzie słyszalny dla innych graczy.
+
 %package server
 Summary:	Mumble voice chat server
+Summary(pl.UTF-8):	Serwer rozmów głosowych Mumble
 Group:		Applications/Communications
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
@@ -77,6 +85,11 @@ Provides:	user(murmur)
 %description server
 Murmur (also called mumble-server) is part of VoIP suite Mumble
 primarily intended for gamers. Murmur is server part of suite.
+
+%description server -l pl.UTF-8
+Murmur (albo inaczej mumble-server) to część oprogramowania VoIP
+Mumble, przeznaczonego głównie dla graczy. Murmur to część serwerowa
+tego oprogramowania.
 
 %prep
 %setup -q
