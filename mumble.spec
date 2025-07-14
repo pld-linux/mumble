@@ -93,10 +93,10 @@ tego oprogramowania.
 
 %prep
 %setup -q
-%patch1 -p0
-%patch2 -p0
-%patch3 -p1
-%patch4 -p1
+%patch -P1 -p0
+%patch -P2 -p0
+%patch -P3 -p1
+%patch -P4 -p1
 
 %build
 qmake-qt4 "CONFIG+=no-bundled-speex no-bundled-celt no-g15 \
